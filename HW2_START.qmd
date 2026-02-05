@@ -7,6 +7,8 @@ format:
     theme: sketchy
     css: styles.css
 date: "January 26, 2026"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +23,7 @@ All written responses must be written independently (in your own words).
 
 Keep your work readable: Use clear headings and label plot elements thoughtfully.
 
-Assignment submission (YOUR NAME): ______________________________________
+Assignment submission (YOUR NAME): Melannie Moreno Rolón
 
 ------------------------------------------------------------------------
 
@@ -86,35 +88,34 @@ library(scales) # plotting
 **1A.Q1** Summarize the environmental policy issue, the outcome of interest, and the intervention being evaluated. 
 Be sure to include a brief description of each of the following key elements of the study: unit of analysis, outcome, treatment, comparison group): 
 
-*Response:* _________________________
+*Response:* This paper examines electoral backlash against climate policy by studying local resistance to wind energy projects in Ontario, Canada. The study uses a natural experiment created by the Green Energy Act to evaluate whether proximity to proposed or operational wind turbines led to electoral punishment of the incumbent provincial Liberal Party. The outcome of interest is incumbent vote share and voter turnout and was measured at the provincial electoral precinct level. The treatment is defined as precinct-level exposure to wind turbines, while the comparison group consists of similar precincts in wind-feasible districts without turbine exposure.
 
 **1A.Q2** Why might turbine proposals be correlated with baseline political preferences or rural areas? Provide 2 plausible mechanisms, and explain why that creates confounding.
 
-*Response:* _________________________
-
+*Response:* According to the study, turbine proposals may be correlated with baseline political preferences or rural areas for two reasons. First, wind turbines were more likely to be sited in rural areas due to land availability and low population density, and rural precincts tend to have different political preferences and lower baseline support for the incumbent Liberal Party. Second, developers may have anticipated less resistance in communities with lower political influence or mobilization capacity, leading turbines to be placed in areas already predisposed to oppose the government. Both mechanisms create confounding because the observed electoral backlash could reflect pre-existing political preferences rather than a direct causal effect of turbine exposure.
 ------------------------------------------------------------------------
 
 #### **1B.** Break down the causal inference strategy and identify threats to identification:
 
 **1B.Q1**  What is the key identifying assumption for a fixed effects / Difference-in-Difference design? Explain how this assumption when satisfied provides evidence of causal effect: 
 
-*Response:* _________________________
+*Response:* The key identifying assumption of a fixed effects / difference-in-differences design is the parallel trends assumption. This assumption states that, in the absence of treatment, treated and control precincts would have followed the same trend in electoral outcomes over time. When this assumption is satisfied, any divergence in outcomes after treatment can be attributed to the treatment itself rather than to pre-existing differences between groups, and thus, provide evidence of a causal effect.
 
 **1B.Q2**  What is the reason for using a fixed effects approach from a causal inference perspective? Summarize within the context of study (in your own words).
 
-*Response:* _________________________
+*Response:* From a causal inference perspective, the fixed effects approach is used to control for time-invariant characteristics of precincts that could confound the relationship between wind turbines and voting behavior. Examples of these characteristics are political preferences, the rural setting, or socioeconomic differences.
 
 **1B.Q3** What part of the SUTVA assumption is most likely violated in the context of this study design (and why)?
 
-*Response:* _________________________
+*Response:* The assumption of SUTVA most likely to be violated is the no-interference assumption. The no-interference assumption states that the treatment status of one unit does not affect the outcomes of other units. In this study, voters in precincts without turbines may still be affected by nearby turbines through visual exposure, noise, or local political mobilization. Therefore, outcomes in control precincts could be influenced by the treatment in neighboring precincts.
 
 **1B.Q4**  Why does spillover matter when estimating an unbiased treatment effect? 
 
-*Response:* _________________________
+*Response:* Spillover matters because if control units are indirectly affected by treatment, the estimated difference between treated and control groups will be biased toward zero. This makes the treatment effect appear smaller than it actually is, and the control group is no longer a valid counterfactual for what would have happened in the absence of treatment.
 
 **1B.Q5** How do the authors assess the risk of spillovers, and what analytic choice do they make to attempt to mitigate the risk that spillover biases the causal estimate?
 
-*Response:* _________________________
+*Response:* The authors assessed the risk of spillover by estimating treatment effects at increasing distance bands from wind turbines up to 5 km, and showing that vote share declines persist up to about 3 km. To mitigate the risk that spillover biases the causal estimate, the researchers excluded precincts within 6 km of turbines from the control group when estimating distance-related effects.
 
 ------------------------------------------------------------------------
 
@@ -133,15 +134,19 @@ We will start by evaluating the 2007 survey (cross-sectional) data. Treatment is
 3. Take a look at the data
 
 ```{r}
+# Read in data file and code `precinct_id` and `district_id` as factors
+match_data <- read_csv(here("data", "stokes15_survey2007.csv")) %>% 
+    mutate(precinct_id = factor(precinct_id),
+           district_id = factor(district_id))
 
-match_data <- 
-    
+# Take a look at the data
+glimpse(match_data)    
 ```
 
 
 **2A.Q1** Intuition check: **Why match?** Explain rationale for using this method. 
 
-*Response:* _________________________
+*Response:* Matching is used here to make sure that treated and control precincts are comparable on observed pre-treatment characteristics that could influence voting behavior. Since we will be balancing these covariates, matching will reduce confounding and make differences in incumbent vote share more plausibly attributable to proximity to turbine proposals rather than other underlying differences between precincts.
 
 ------------------------------------------------------------------------
 
@@ -153,25 +158,37 @@ match_data <-
 - Use the `tbl_summary()` function from the `{gtsummary}` package.
 
 ```{r}
-
-match_data %>%
-
+# Covariate balance table
+match_data %>% 
+    select(
+        proposed_turbine_3km, log_home_val_07, p_uni_degree, log_median_inc,
+        log_pop_denc
+    ) %>% 
+    tbl_summary(
+        by = proposed_turbine_3km,
+        statistic = list(
+            all_continuous() ~ "{mean} ({sd})",
+            all_categorical() ~ "{n} ({p}%)"
+        )
+    ) %>% 
+    modify_header(label ~ "**Covariate**") %>% 
+    modify_spanning_header(c("stat_1", "stat_2") ~ "**Group**")
 ```
 
 
 **2B.Q1** Summarize the table output: Which covariates look balanced/imbalanced?
 
-*Response:* _________________________
+*Response:* `log_pop_denc` and `p_uni_degree` appear more imbalanced across treated and control precincts, while `log_home_val_07` and `log_median_inc` appear to be more balanced.
 
 **2B.Q2** Describe in your own words why these covariates might be expected to confound the treatment estimate: 
 
-*Response (2-4 sentences):* _________________________
+*Response (2-4 sentences):* These covariates may confound the treatment estimate because they are related to turbine siting and voting behavior. Differences in population density, education, income, and home values reflect underlying socioeconomic and political characteristics that could influence incumbent vote share independent of turbine exposure.
 
 ------------------------------------------------------------------------
 
 **2B.Q3** Intuition check: What type of data do you need to conduct a matching analysis? 
 
-*Response:* _________________________
+*Response:* Conducting a matching analysis requires cross-sectional or pre-treatment data which includes a treatment indicator, pre-treatment covariates, and an outcome variable.
 
 ------------------------------------------------------------------------
 
@@ -201,7 +218,8 @@ Learning goals:
 set.seed(2412026)
 
 match_model <- matchit(
-     # Treatment_indicator ~  Pre_treatment_covariates
+    formula = proposed_turbine_3km  ~  log_home_val_07 + p_uni_degree + log_median_inc + 
+         log_pop_denc,
   data = match_data, 
   method = "nearest",       # Nearest neighbor matching
   distance = "mahalanobis", # Mahalanobis distance
@@ -220,7 +238,7 @@ summary(match_model)
 
 **2C.Q1** Using the `summary()` output: Which covariate had the largest and smallest `Std. Mean Diff.` before matching. Next, compare largest/smallest `Std. Mean Diff.` after matching. 
 
-*Response:* _________________________
+*Response:* `log_pop_denc` had the largest `Std. Mean Diff.` before matching, while `log_median_inc` had the smallest. After matching, `log_pop_denc` still had the largest `Std. Mean Diff` and `log_median_inc` had the smallest. 
 
 
 ------------------------------------------------------------------------
@@ -246,7 +264,8 @@ new_names <- data.frame(
             "Median Income (log)", "Population Density (log)"))
 
 # Love plot
-love.plot(match_model, stats = "mean.diffs",
+love.plot(match_model, 
+          stats = "mean.diffs",
           thresholds = c(m = 0.1),
           var.names = new_names)
 
@@ -254,7 +273,7 @@ love.plot(match_model, stats = "mean.diffs",
 
 **2D.Q1** Interpret the love plot in your own words:
 
-*Response:* _________________________
+*Response:* The love plot shows a significant imbalance in population density and educational attainment before matching, where the standardized mean differences are well above the 0.1 threshold. After matching, all covariates are well balanced and fall within the threshold, therefore, the matching procedure successfully reduced observable differences between treated and control precincts.
 
 ------------------------------------------------------------------------
 
@@ -271,7 +290,15 @@ love.plot(match_model, stats = "mean.diffs",
 
 set.seed(2412026)
 
-propensity_scores <- 
+propensity_scores <- matchit(
+    formula = proposed_turbine_3km  ~  log_home_val_07 + p_uni_degree + log_median_inc + 
+         log_pop_denc,
+  data = match_data, 
+  method = "nearest",       # Nearest neighbor matching
+  distance = "logit",       # logit distance
+  ratio = 1,                # Match one control unit to one treatment unit (1:1 matching)
+  replace = FALSE           # Control observations are not replaced
+)
     
 ```
 
