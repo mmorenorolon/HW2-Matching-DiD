@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="EDS 241 / ESM 244 (DUE: 2/4/26)">
+<meta name="author" content="Melannie Moreno Rolón - EDS 241 / ESM 244 (DUE: 2/4/26)">
 <meta name="dcterms.date" content="2026-01-26">
 
 <title>🌬️🗳 Assignment 2: Wind Turbines, Matching, and Difference-in-Differences</title>
@@ -19,12 +19,11 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -49,13 +48,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -70,35 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="HW2_START_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="HW2_START_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -122,7 +123,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>EDS 241 / ESM 244 (DUE: 2/4/26) </p>
+             <p>Melannie Moreno Rolón - EDS 241 / ESM 244 (DUE: 2/4/26) </p>
           </div>
   </div>
     
@@ -137,16 +138,14 @@ window.Quarto = {
   </div>
   
 
-
 </header>
-
 
 <section id="assignment-instructions" class="level3">
 <h3 class="anchored" data-anchor-id="assignment-instructions">Assignment instructions</h3>
 <p>Working with classmates to troubleshoot code and concepts is encouraged. If you collaborate, list collaborators at the top of your submission.</p>
 <p>All written responses must be written independently (in your own words).</p>
 <p>Keep your work readable: Use clear headings and label plot elements thoughtfully.</p>
-<p>Assignment submission (YOUR NAME): ______________________________________</p>
+<p>Assignment submission (YOUR NAME): Melannie Moreno Rolón</p>
 <hr>
 </section>
 <section id="introduction" class="level3">
@@ -168,7 +167,7 @@ window.Quarto = {
 <li><strong>Study:</strong> <a href="https://drive.google.com/file/d/1y2Okzjq2EA43AW5JzCvFS8ecLpeP6NKh/view?usp=sharing">Stokes (2015) - Article</a></li>
 <li><strong>Data source:</strong> <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SDUGCC">Dataverse-Stokes2015</a></li>
 </ul>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout callout callout-style-simple no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -209,7 +208,7 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>Goal: Get familiar with the study setting, environmental issue, and policy under evaluation.</p>
 </blockquote>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout callout callout-style-simple no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -220,25 +219,25 @@ window.Quarto = {
 </div>
 </div>
 <p><strong>1A.Q1</strong> Summarize the environmental policy issue, the outcome of interest, and the intervention being evaluated. Be sure to include a brief description of each of the following key elements of the study: unit of analysis, outcome, treatment, comparison group):</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> This paper examines electoral backlash against climate policy by studying local resistance to wind energy projects in Ontario, Canada. The study uses a natural experiment created by the Green Energy Act to evaluate whether proximity to proposed or operational wind turbines led to electoral punishment of the incumbent provincial Liberal Party. The outcome of interest is incumbent vote share and voter turnout and was measured at the provincial electoral precinct level. The treatment is defined as precinct-level exposure to wind turbines, while the comparison group consists of similar precincts in wind-feasible districts without turbine exposure.</p>
 <p><strong>1A.Q2</strong> Why might turbine proposals be correlated with baseline political preferences or rural areas? Provide 2 plausible mechanisms, and explain why that creates confounding.</p>
-<p><em>Response:</em> _________________________</p>
-<hr>
 </section>
+</section>
+<section id="response-according-to-the-study-turbine-proposals-may-be-correlated-with-baseline-political-preferences-or-rural-areas-for-two-reasons.-first-wind-turbines-were-more-likely-to-be-sited-in-rural-areas-due-to-land-availability-and-low-population-density-and-rural-precincts-tend-to-have-different-political-preferences-and-lower-baseline-support-for-the-incumbent-liberal-party.-second-developers-may-have-anticipated-less-resistance-in-communities-with-lower-political-influence-or-mobilization-capacity-leading-turbines-to-be-placed-in-areas-already-predisposed-to-oppose-the-government.-both-mechanisms-create-confounding-because-the-observed-electoral-backlash-could-reflect-pre-existing-political-preferences-rather-than-a-direct-causal-effect-of-turbine-exposure." class="level2">
+<h2 class="anchored" data-anchor-id="response-according-to-the-study-turbine-proposals-may-be-correlated-with-baseline-political-preferences-or-rural-areas-for-two-reasons.-first-wind-turbines-were-more-likely-to-be-sited-in-rural-areas-due-to-land-availability-and-low-population-density-and-rural-precincts-tend-to-have-different-political-preferences-and-lower-baseline-support-for-the-incumbent-liberal-party.-second-developers-may-have-anticipated-less-resistance-in-communities-with-lower-political-influence-or-mobilization-capacity-leading-turbines-to-be-placed-in-areas-already-predisposed-to-oppose-the-government.-both-mechanisms-create-confounding-because-the-observed-electoral-backlash-could-reflect-pre-existing-political-preferences-rather-than-a-direct-causal-effect-of-turbine-exposure."><em>Response:</em> According to the study, turbine proposals may be correlated with baseline political preferences or rural areas for two reasons. First, wind turbines were more likely to be sited in rural areas due to land availability and low population density, and rural precincts tend to have different political preferences and lower baseline support for the incumbent Liberal Party. Second, developers may have anticipated less resistance in communities with lower political influence or mobilization capacity, leading turbines to be placed in areas already predisposed to oppose the government. Both mechanisms create confounding because the observed electoral backlash could reflect pre-existing political preferences rather than a direct causal effect of turbine exposure.</h2>
 <section id="b.-break-down-the-causal-inference-strategy-and-identify-threats-to-identification" class="level4">
 <h4 class="anchored" data-anchor-id="b.-break-down-the-causal-inference-strategy-and-identify-threats-to-identification"><strong>1B.</strong> Break down the causal inference strategy and identify threats to identification:</h4>
 <p><strong>1B.Q1</strong> What is the key identifying assumption for a fixed effects / Difference-in-Difference design? Explain how this assumption when satisfied provides evidence of causal effect:</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The key identifying assumption of a fixed effects / difference-in-differences design is the parallel trends assumption. This assumption states that, in the absence of treatment, treated and control precincts would have followed the same trend in electoral outcomes over time. When this assumption is satisfied, any divergence in outcomes after treatment can be attributed to the treatment itself rather than to pre-existing differences between groups, and thus, provide evidence of a causal effect.</p>
 <p><strong>1B.Q2</strong> What is the reason for using a fixed effects approach from a causal inference perspective? Summarize within the context of study (in your own words).</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> From a causal inference perspective, the fixed effects approach is used to control for time-invariant characteristics of precincts that could confound the relationship between wind turbines and voting behavior. Examples of these characteristics are political preferences, the rural setting, or socioeconomic differences.</p>
 <p><strong>1B.Q3</strong> What part of the SUTVA assumption is most likely violated in the context of this study design (and why)?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The assumption of SUTVA most likely to be violated is the no-interference assumption. The no-interference assumption states that the treatment status of one unit does not affect the outcomes of other units. In this study, voters in precincts without turbines may still be affected by nearby turbines through visual exposure, noise, or local political mobilization. Therefore, outcomes in control precincts could be influenced by the treatment in neighboring precincts.</p>
 <p><strong>1B.Q4</strong> Why does spillover matter when estimating an unbiased treatment effect?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> Spillover matters because if control units are indirectly affected by treatment, the estimated difference between treated and control groups will be biased toward zero. This makes the treatment effect appear smaller than it actually is, and the control group is no longer a valid counterfactual for what would have happened in the absence of treatment.</p>
 <p><strong>1B.Q5</strong> How do the authors assess the risk of spillovers, and what analytic choice do they make to attempt to mitigate the risk that spillover biases the causal estimate?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The authors assessed the risk of spillover by estimating treatment effects at increasing distance bands from wind turbines up to 5 km, and showing that vote share declines persist up to about 3 km. To mitigate the risk that spillover biases the causal estimate, the researchers excluded precincts within 6 km of turbines from the control group when estimating distance-related effects.</p>
 <hr>
-</section>
 </section>
 <section id="part-2-matching" class="level3">
 <h3 class="anchored" data-anchor-id="part-2-matching">Part 2: Matching</h3>
@@ -255,10 +254,36 @@ window.Quarto = {
 <li>Take a look at the data</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>match_data <span class="ot">&lt;-</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in data file and code `precinct_id` and `district_id` as factors</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>match_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"stokes15_survey2007.csv"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">precinct_id =</span> <span class="fu">factor</span>(precinct_id),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">district_id =</span> <span class="fu">factor</span>(district_id))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at the data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(match_data)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5,973
+Columns: 16
+$ precinct_id          &lt;fct&gt; 10.001.10.1., 10.002.10.1., 10.003.10.2., 10.004.…
+$ district_id          &lt;fct&gt; 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1…
+$ change_liberal       &lt;dbl&gt; 0.08456503, 0.13210655, 0.18208628, 0.15422953, 0…
+$ proposed_turbine_3km &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ log_wind_power       &lt;dbl&gt; 6.645013, 6.295443, 6.310994, 6.654216, 6.104257,…
+$ log_home_val_07      &lt;dbl&gt; 12.27993, 12.28202, 12.28125, 12.26825, 12.37316,…
+$ p_uni_degree         &lt;dbl&gt; 0.19225123, 0.22043792, 0.22079883, 0.12727273, 0…
+$ log_median_inc       &lt;dbl&gt; 10.286860, 10.309722, 10.309530, 10.147100, 10.28…
+$ log_pop_denc         &lt;dbl&gt; -1.79255050, -3.49902997, -0.31878753, -0.4490713…
+$ mindistlake          &lt;dbl&gt; 0.0000000, 1.3834536, 2.6037725, 0.0000000, 0.953…
+$ mindistlake_sq       &lt;dbl&gt; 0.00000000, 1.91394392, 6.77963136, 0.00000000, 0…
+$ longitude            &lt;dbl&gt; -81.67554, -81.64687, -81.47904, -81.69842, -81.3…
+$ long_sq              &lt;dbl&gt; 6670.894, 6666.211, 6638.833, 6674.633, 6616.192,…
+$ latitude             &lt;dbl&gt; 45.30674, 45.25790, 45.22889, 45.20118, 45.17166,…
+$ lat_sq               &lt;dbl&gt; 2052.701, 2048.277, 2045.653, 2043.146, 2040.479,…
+$ long_lat             &lt;dbl&gt; -3700.453, -3695.166, -3685.207, -3692.865, -3674…</code></pre>
+</div>
 </div>
 <p><strong>2A.Q1</strong> Intuition check: <strong>Why match?</strong> Explain rationale for using this method.</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> Matching is used here to make sure that treated and control precincts are comparable on observed pre-treatment characteristics that could influence voting behavior. Since we will be balancing these covariates, matching will reduce confounding and make differences in incumbent vote share more plausibly attributable to proximity to turbine proposals rather than other underlying differences between precincts.</p>
 <hr>
 </section>
 <section id="b.-check-imbalance-before-matching" class="level4">
@@ -270,15 +295,517 @@ window.Quarto = {
 <li>Use the <code>tbl_summary()</code> function from the <code>{gtsummary}</code> package.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>match_data <span class="sc">%&gt;%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Covariate balance table</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>match_data <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        proposed_turbine_3km, log_home_val_07, p_uni_degree, log_median_inc,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        log_pop_denc</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tbl_summary</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">by =</span> proposed_turbine_3km,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({sd})"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} ({p}%)"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modify_header</span>(label <span class="sc">~</span> <span class="st">"**Covariate**"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modify_spanning_header</span>(<span class="fu">c</span>(<span class="st">"stat_1"</span>, <span class="st">"stat_2"</span>) <span class="sc">~</span> <span class="st">"**Group**"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="boprwzgplc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#boprwzgplc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#boprwzgplc thead, #boprwzgplc tbody, #boprwzgplc tfoot, #boprwzgplc tr, #boprwzgplc td, #boprwzgplc th {
+  border-style: none;
+}
+
+#boprwzgplc p {
+  margin: 0;
+  padding: 0;
+}
+
+#boprwzgplc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#boprwzgplc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#boprwzgplc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#boprwzgplc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#boprwzgplc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#boprwzgplc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#boprwzgplc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#boprwzgplc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#boprwzgplc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#boprwzgplc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#boprwzgplc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#boprwzgplc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#boprwzgplc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#boprwzgplc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#boprwzgplc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#boprwzgplc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#boprwzgplc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#boprwzgplc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#boprwzgplc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#boprwzgplc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#boprwzgplc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#boprwzgplc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#boprwzgplc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#boprwzgplc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#boprwzgplc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#boprwzgplc .gt_left {
+  text-align: left;
+}
+
+#boprwzgplc .gt_center {
+  text-align: center;
+}
+
+#boprwzgplc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#boprwzgplc .gt_font_normal {
+  font-weight: normal;
+}
+
+#boprwzgplc .gt_font_bold {
+  font-weight: bold;
+}
+
+#boprwzgplc .gt_font_italic {
+  font-style: italic;
+}
+
+#boprwzgplc .gt_super {
+  font-size: 65%;
+}
+
+#boprwzgplc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#boprwzgplc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#boprwzgplc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#boprwzgplc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#boprwzgplc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#boprwzgplc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#boprwzgplc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#boprwzgplc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#boprwzgplc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="label"><span data-qmd-base64="KipDb3ZhcmlhdGUqKg=="><span class="gt_from_md"><strong>Covariate</strong></span></span></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="level 1; stat_1">
+        <div class="gt_column_spanner"><span data-qmd-base64="KipHcm91cCoq"><span class="gt_from_md"><strong>Group</strong></span></span></div>
+      </th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_1"><span data-qmd-base64="KiowKiogIApOID0gNSw2MTk="><span class="gt_from_md"><strong>0</strong><br>
+N = 5,619</span></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_2"><span data-qmd-base64="KioxKiogIApOID0gMzU0"><span class="gt_from_md"><strong>1</strong><br>
+N = 354</span></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">log_home_val_07</td>
+<td headers="stat_1" class="gt_row gt_center">12.26 (0.37)</td>
+<td headers="stat_2" class="gt_row gt_center">12.29 (0.29)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">p_uni_degree</td>
+<td headers="stat_1" class="gt_row gt_center">0.17 (0.12)</td>
+<td headers="stat_2" class="gt_row gt_center">0.13 (0.09)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">log_median_inc</td>
+<td headers="stat_1" class="gt_row gt_center">10.32 (0.22)</td>
+<td headers="stat_2" class="gt_row gt_center">10.31 (0.19)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">log_pop_denc</td>
+<td headers="stat_1" class="gt_row gt_center">5.12 (2.40)</td>
+<td headers="stat_2" class="gt_row gt_center">3.54 (1.78)</td></tr>
+  </tbody>
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td class="gt_footnote" colspan="3"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span data-qmd-base64="TWVhbiAoU0Qp"><span class="gt_from_md">Mean (SD)</span></span></td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
 </div>
 <p><strong>2B.Q1</strong> Summarize the table output: Which covariates look balanced/imbalanced?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> <code>log_pop_denc</code> and <code>p_uni_degree</code> appear more imbalanced across treated and control precincts, while <code>log_home_val_07</code> and <code>log_median_inc</code> appear to be more balanced.</p>
 <p><strong>2B.Q2</strong> Describe in your own words why these covariates might be expected to confound the treatment estimate:</p>
-<p><em>Response (2-4 sentences):</em> _________________________</p>
+<p><em>Response (2-4 sentences):</em> These covariates may confound the treatment estimate because they are related to turbine siting and voting behavior. Differences in population density, education, income, and home values reflect underlying socioeconomic and political characteristics that could influence incumbent vote share independent of turbine exposure.</p>
 <hr>
 <p><strong>2B.Q3</strong> Intuition check: What type of data do you need to conduct a matching analysis?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> Conducting a matching analysis requires cross-sectional or pre-treatment data which includes a treatment indicator, pre-treatment covariates, and an outcome variable.</p>
 <hr>
 </section>
 </section>
@@ -290,7 +817,7 @@ window.Quarto = {
 <li>Approximate the Mahalanobis matching method used in Stokes (2015)</li>
 <li>Implement another common matching approach called <code>propensity score matching</code></li>
 </ul>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout callout callout-style-simple no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -312,25 +839,64 @@ window.Quarto = {
 <li>Extract the matched data using <code>match.data()</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2412026</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>match_model <span class="ot">&lt;-</span> <span class="fu">matchit</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="co"># Treatment_indicator ~  Pre_treatment_covariates</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> match_data, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"nearest"</span>,       <span class="co"># Nearest neighbor matching</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance =</span> <span class="st">"mahalanobis"</span>, <span class="co"># Mahalanobis distance</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ratio =</span> <span class="dv">1</span>,                <span class="co"># Match one control unit to one treatment unit (1:1 matching)</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">FALSE</span>           <span class="co"># Control observations are not replaced</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract matched data</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>matched_data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2412026</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>match_model <span class="ot">&lt;-</span> <span class="fu">matchit</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> proposed_turbine_3km  <span class="sc">~</span>  log_home_val_07 <span class="sc">+</span> p_uni_degree <span class="sc">+</span> log_median_inc <span class="sc">+</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>         log_pop_denc,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> match_data, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"nearest"</span>,       <span class="co"># Nearest neighbor matching</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance =</span> <span class="st">"mahalanobis"</span>, <span class="co"># Mahalanobis distance</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ratio =</span> <span class="dv">1</span>,                <span class="co"># Match one control unit to one treatment unit (1:1 matching)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">FALSE</span>           <span class="co"># Control observations are not replaced</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract matched data</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>matched_data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+matchit(formula = proposed_turbine_3km ~ log_home_val_07 + p_uni_degree + 
+    log_median_inc + log_pop_denc, data = match_data, method = "nearest", 
+    distance = "mahalanobis", replace = FALSE, ratio = 1)
+
+Summary of Balance for All Data:
+                Means Treated Means Control Std. Mean Diff. Var. Ratio
+log_home_val_07       12.2948       12.2620          0.1138     0.5941
+p_uni_degree           0.1257        0.1688         -0.5032     0.4916
+log_median_inc        10.3096       10.3219         -0.0636     0.7581
+log_pop_denc           3.5398        5.1192         -0.8897     0.5474
+                eCDF Mean eCDF Max
+log_home_val_07    0.0382   0.0881
+p_uni_degree       0.1032   0.1769
+log_median_inc     0.0355   0.0750
+log_pop_denc       0.2099   0.3713
+
+Summary of Balance for Matched Data:
+                Means Treated Means Control Std. Mean Diff. Var. Ratio
+log_home_val_07       12.2948       12.2975         -0.0093     1.0063
+p_uni_degree           0.1257        0.1262         -0.0060     1.0485
+log_median_inc        10.3096       10.3096          0.0002     1.0403
+log_pop_denc           3.5398        3.5982         -0.0329     0.9784
+                eCDF Mean eCDF Max Std. Pair Dist.
+log_home_val_07    0.0075   0.0282          0.1334
+p_uni_degree       0.0088   0.0367          0.1642
+log_median_inc     0.0073   0.0395          0.1225
+log_pop_denc       0.0109   0.0508          0.1485
+
+Sample Sizes:
+          Control Treated
+All          5619     354
+Matched       354     354
+Unmatched    5265       0
+Discarded       0       0</code></pre>
+</div>
 </div>
 <p><strong>2C.Q1</strong> Using the <code>summary()</code> output: Which covariate had the largest and smallest <code>Std. Mean Diff.</code> before matching. Next, compare largest/smallest <code>Std. Mean Diff.</code> after matching.</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> <code>log_pop_denc</code> had the largest <code>Std. Mean Diff.</code> before matching, while <code>log_median_inc</code> had the smallest. After matching, <code>log_pop_denc</code> still had the largest <code>Std. Mean Diff</code> and <code>log_median_inc</code> had the smallest.</p>
 <hr>
 <section id="d.-create-a-love-plot-using-love.plot" class="level4">
 <h4 class="anchored" data-anchor-id="d.-create-a-love-plot-using-love.plot">2D. Create a “love plot” using <code>love.plot()</code> ❤️</h4>
@@ -346,18 +912,22 @@ window.Quarto = {
 <li>In love plot display <code>mean.diffs</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">old =</span> <span class="fu">c</span>(<span class="st">"log_home_val_07"</span>, <span class="st">"p_uni_degree"</span>, <span class="st">"log_median_inc"</span>, <span class="st">"log_pop_denc"</span>),</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">new =</span> <span class="fu">c</span>(<span class="st">"Home Value (log)"</span>, <span class="st">"Percent University Degree"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Median Income (log)"</span>, <span class="st">"Population Density (log)"</span>))</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Love plot</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">love.plot</span>(match_model, <span class="at">stats =</span> <span class="st">"mean.diffs"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">thresholds =</span> <span class="fu">c</span>(<span class="at">m =</span> <span class="fl">0.1</span>),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">var.names =</span> new_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">old =</span> <span class="fu">c</span>(<span class="st">"log_home_val_07"</span>, <span class="st">"p_uni_degree"</span>, <span class="st">"log_median_inc"</span>, <span class="st">"log_pop_denc"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">new =</span> <span class="fu">c</span>(<span class="st">"Home Value (log)"</span>, <span class="st">"Percent University Degree"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Median Income (log)"</span>, <span class="st">"Population Density (log)"</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Love plot</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">love.plot</span>(match_model, </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">stats =</span> <span class="st">"mean.diffs"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">thresholds =</span> <span class="fu">c</span>(<span class="at">m =</span> <span class="fl">0.1</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">var.names =</span> new_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="HW2_START_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <p><strong>2D.Q1</strong> Interpret the love plot in your own words:</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The love plot shows a significant imbalance in population density and educational attainment before matching, where the standardized mean differences are well above the 0.1 threshold. After matching, all covariates are well balanced and fall within the threshold, therefore, the matching procedure successfully reduced observable differences between treated and control precincts.</p>
 <hr>
 </section>
 </section>
@@ -371,9 +941,17 @@ window.Quarto = {
 <li>Same code as above except change <code>distance = "logit"</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2412026</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>propensity_scores <span class="ot">&lt;-</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2412026</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>propensity_scores <span class="ot">&lt;-</span> <span class="fu">matchit</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> proposed_turbine_3km  <span class="sc">~</span>  log_home_val_07 <span class="sc">+</span> p_uni_degree <span class="sc">+</span> log_median_inc <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         log_pop_denc,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> match_data, </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"nearest"</span>,       <span class="co"># Nearest neighbor matching</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance =</span> <span class="st">"logit"</span>,       <span class="co"># logit distance</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ratio =</span> <span class="dv">1</span>,                <span class="co"># Match one control unit to one treatment unit (1:1 matching)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">FALSE</span>           <span class="co"># Control observations are not replaced</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
@@ -382,27 +960,92 @@ window.Quarto = {
 <p>📜 <a href="https://ngreifer.github.io/cobalt/">Documentation - cobalt</a></p>
 <p>Use <code>bal.tab()</code> to report balance before and after matching.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.tab</span>(propensity_scores, </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">var.names =</span> new_names) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.tab</span>(propensity_scores, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">var.names =</span> new_names) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Balance Measures
+                    Type Diff.Adj
+distance        Distance   0.0001
+log_home_val_07  Contin.   0.0205
+p_uni_degree     Contin.   0.0457
+log_median_inc   Contin.  -0.0042
+log_pop_denc     Contin.  -0.0365
+
+Sample sizes
+          Control Treated
+All          5619     354
+Matched       354     354
+Unmatched    5265       0</code></pre>
+</div>
 </div>
 <p><strong>2E.Q1</strong> Compare Mahalanobis vs propensity score matching. Which method did a better job at achieving balance?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> Propensity score matching achieved a slightly better balance, since the adjusted standardized mean differences are consistently very small across all covariates and had a slightly tighter balance than Mahalanobis matching.</p>
 <hr>
 </section>
 <section id="f.-estimate-an-effect-in-the-matched-sample" class="level4">
 <h4 class="anchored" data-anchor-id="f.-estimate-an-effect-in-the-matched-sample">2F. Estimate an effect in the matched sample</h4>
 <p>Using the matched data (Mahalanobis method), estimate the effect of treatment on the change in incumbent vote share (<code>change_liberal</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>reg_match <span class="ot">&lt;-</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#summ(, model.fit = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>reg_match <span class="ot">&lt;-</span>  <span class="fu">lm</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  change_liberal <span class="sc">~</span> proposed_turbine_3km,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> matched_data,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> matched_data<span class="sc">$</span>weights)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(reg_match, <span class="at">model.fit =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 708 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> change_liberal </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table>  <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> -0.07 </td>
+   <td style="text-align:right;"> 0.01 </td>
+   <td style="text-align:right;"> -10.96 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> proposed_turbine_3km </td>
+   <td style="text-align:right;"> -0.06 </td>
+   <td style="text-align:right;"> 0.01 </td>
+   <td style="text-align:right;"> -7.25 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS</td></tr></tfoot>
+</table>
+</div>
 </div>
 <p><strong>2F.Q1</strong> Have you identified a causal estimate using this approach: Why or why not?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> This approach identified a causal estimate that depends on satisfying the matching assumptions. The analysis reduces confounding from observed pre-treatment covariates by matching treated and control precincts, and under the assumption that there are no unobserved confounders, the estimated effect is −0.06. This would be the causal effect of proximity to a turbine proposal on incumbent vote share.</p>
 <p><strong>2F.Q2</strong> When using a matching method, what is the main threat to causal identification?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The main threat to causal identification when using the matching method is the possibility of having an unobserved confounding. If there are factors left unmeasured that could affect turbine siting and voting behavior, the treatment estimate may be biased.</p>
 <p><strong>2F.Q3</strong> Describe why the treatment estimate represents the <code>Average Treatment for the Treated (ATT)</code> and explain why this is the case relative to estimation of the <code>Average Treatment Effect (ATE)</code>.</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The treatment estimate represents the Average Treatment Effect on the Treated (ATT) because the matching procedure pairs each treated precinct with similar control precincts and then estimates the effect for those treated units. The control units are also selected to resemble the treated group, where the estimate reflects the effect of treatment on precincts that actually experienced turbine exposure.</p>
 <hr>
 </section>
 </section>
@@ -413,29 +1056,73 @@ window.Quarto = {
 <section id="a-read-in-the-panel-data-code-variables-precinct_id-and-year-as-factors" class="level4">
 <h4 class="anchored" data-anchor-id="a-read-in-the-panel-data-code-variables-precinct_id-and-year-as-factors"><strong>3A:</strong> Read in the panel data + code variables <code>precinct_id</code> and <code>year</code> as factors</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>panel_data <span class="ot">&lt;-</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># HINT: Try running `tabyl(panel_data$year)`. Review article to make sense of the row numbers (n).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>panel_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"Stokes15_panel_data.csv"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">precinct_id =</span> <span class="fu">factor</span>(precinct_id),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year =</span> <span class="fu">factor</span>(year))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(panel_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 18,558
+Columns: 14
+$ precinct_id         &lt;fct&gt; 10.001.10.1., 10.001.10.1., 10.001.10.1., 10.002.1…
+$ year                &lt;fct&gt; 2003, 2007, 2011, 2003, 2007, 2011, 2003, 2007, 20…
+$ perc_lib            &lt;dbl&gt; 0.4341600, 0.2162162, 0.3007812, 0.4341600, 0.1686…
+$ proposed_turbine    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ operational_turbine &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ log_pop             &lt;dbl&gt; 5.8077175, 3.9076310, 3.8643798, 5.1978116, 2.1535…
+$ log_pop_denc        &lt;dbl&gt; -1.4725813, -1.2777149, -1.7925505, -2.0824872, 0.…
+$ log_median_inc      &lt;dbl&gt; 9.955869, 9.754840, 10.286860, 9.956546, 9.699630,…
+$ log_home_val        &lt;dbl&gt; 11.81378, 12.27993, 12.79206, 11.86941, 12.28202, …
+$ avg_home_val        &lt;dbl&gt; 135100.7, 215330.9, 359353.6, 142830.1, 215781.7, …
+$ unemploy_rate       &lt;dbl&gt; 5.258431, 11.205697, 12.797498, 5.858203, 14.30746…
+$ p_uni_degree        &lt;dbl&gt; 0.25098436, 0.19586050, 0.19225123, 0.26564499, 0.…
+$ p_immigrant         &lt;dbl&gt; 0.15281480, 0.11723295, 0.12858559, 0.16840506, 0.…
+$ p_housing_own       &lt;dbl&gt; 0.6654168, 0.9334555, 0.9410068, 0.6665852, 0.9176…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HINT: Try running `tabyl(panel_data$year)`. Review article to make sense of the row numbers (n).</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(panel_data<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> panel_data$year    n   percent
+            2003 6186 0.3333333
+            2007 6186 0.3333333
+            2011 6186 0.3333333</code></pre>
+</div>
 </div>
 <p><strong>3A.Q1:</strong> Why are there 18,558 rows in <code>panel_data</code>?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The dataset is structured in long format. Each precinct appears once for each election year. There are 6,186 precincts observed in three election years (2003, 2007, and 2011), therefore, the dataset contains 18,558 rows in total.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many years are included in the panel?</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># How many precincts are there?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many years are included in the panel?</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(panel_data<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># There are 3 years included in the panel (2003, 2007, 2011).</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># How many precincts are there?</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(panel_data<span class="sc">$</span>precinct_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6186</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># There are 6,186 total precincts.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>3A.Q2:</strong> How many unique precincts are <em>ever treated</em> (i.e., <code>proposed</code> &amp; <code>operational</code>)?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> There are 184 unique precincts that are <em>ever treated</em>. Of these, 52 precincts eventually have an operational turbine.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>panel_data <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(precinct_id) <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ever_proposed    =</span> <span class="fu">any</span>(proposed_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ever_operational =</span> <span class="fu">any</span>(operational_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_ever_proposed    =</span> <span class="fu">sum</span>(ever_proposed),</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_ever_operational =</span> <span class="fu">sum</span>(ever_operational))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>panel_data <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(precinct_id) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ever_proposed    =</span> <span class="fu">any</span>(proposed_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ever_operational =</span> <span class="fu">any</span>(operational_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_ever_proposed    =</span> <span class="fu">sum</span>(ever_proposed),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_ever_operational =</span> <span class="fu">sum</span>(ever_operational))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  n_ever_proposed n_ever_operational
+            &lt;int&gt;              &lt;int&gt;
+1             184                 52</code></pre>
+</div>
 </div>
 <hr>
 </section>
@@ -448,56 +1135,59 @@ window.Quarto = {
 </ol>
 <p>Step 1: Prepare data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>trends_data <span class="ot">&lt;-</span> panel_data <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(precinct_id) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">treat_p =</span> <span class="fu">as.integer</span>(<span class="fu">any</span>(proposed_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),  <span class="co"># ever proposed (in any year)</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treat_o =</span> <span class="fu">as.integer</span>(<span class="fu">any</span>(operational_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span> <span class="co"># ever operational (in any year)</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(treat_p, treat_o),</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"turbine_type"</span>, <span class="at">values_to =</span> <span class="st">"treat"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">turbine_type =</span> <span class="fu">factor</span>(turbine_type,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"treat_p"</span>, <span class="st">"treat_o"</span>),</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Proposed turbines"</span>, <span class="st">"Operational turbines"</span>)),  </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">status =</span> <span class="fu">if_else</span>(treat <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Treated"</span>, <span class="st">"Control"</span>),</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">year   =</span> <span class="fu">factor</span>(year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>trends_data <span class="ot">&lt;-</span> panel_data <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(precinct_id) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">treat_p =</span> <span class="fu">as.integer</span>(<span class="fu">any</span>(proposed_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),  <span class="co"># ever proposed (in any year)</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treat_o =</span> <span class="fu">as.integer</span>(<span class="fu">any</span>(operational_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span> <span class="co"># ever operational (in any year)</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(treat_p, treat_o),</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"turbine_type"</span>, <span class="at">values_to =</span> <span class="st">"treat"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">turbine_type =</span> <span class="fu">factor</span>(turbine_type,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"treat_p"</span>, <span class="st">"treat_o"</span>),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Proposed turbines"</span>, <span class="st">"Operational turbines"</span>)),  </span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">status =</span> <span class="fu">if_else</span>(treat <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Treated"</span>, <span class="st">"Control"</span>),</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">year   =</span> <span class="fu">factor</span>(year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Step 2: Create trends plot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pd <span class="ot">&lt;-</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.15</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>trends_data <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(turbine_type, status, year) <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(perc_lib, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n    =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(perc_lib)),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">se   =</span> <span class="fu">sd</span>(perc_lib, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(n), </span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci   =</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="fu">pmax</span>(n <span class="sc">-</span> <span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">*</span> se,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(year, mean, <span class="at">color =</span> status, <span class="at">group =</span> status)) <span class="sc">+</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">position =</span> pd, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> pd, <span class="at">size =</span> <span class="fl">2.6</span>) <span class="sc">+</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> ci, <span class="at">ymax =</span> mean <span class="sc">+</span> ci),</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> pd, <span class="at">width =</span> .<span class="dv">12</span>, <span class="at">linewidth =</span> .<span class="dv">7</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> turbine_type, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Control =</span> <span class="st">"#0072B2"</span>, <span class="at">Treated =</span> <span class="st">"#B22222"</span>)) <span class="sc">+</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">20</span>, .<span class="dv">57</span>)) <span class="sc">+</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Figure 2. Trends in the Governing Party’s Vote Share"</span>,</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Election Year"</span>,</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Liberal Party Vote Share"</span>,</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pd <span class="ot">&lt;-</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.15</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>trends_data <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(turbine_type, status, year) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(perc_lib, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n    =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(perc_lib)),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">se   =</span> <span class="fu">sd</span>(perc_lib, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(n), </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci   =</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="fu">pmax</span>(n <span class="sc">-</span> <span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">*</span> se,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(year, mean, <span class="at">color =</span> status, <span class="at">group =</span> status)) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">position =</span> pd, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> pd, <span class="at">size =</span> <span class="fl">2.6</span>) <span class="sc">+</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> ci, <span class="at">ymax =</span> mean <span class="sc">+</span> ci),</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> pd, <span class="at">width =</span> .<span class="dv">12</span>, <span class="at">linewidth =</span> .<span class="dv">7</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> turbine_type, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Control =</span> <span class="st">"#0072B2"</span>, <span class="at">Treated =</span> <span class="st">"#B22222"</span>)) <span class="sc">+</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">20</span>, .<span class="dv">57</span>)) <span class="sc">+</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Figure 2. Trends in the Governing Party’s Vote Share"</span>,</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Election Year"</span>,</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Liberal Party Vote Share"</span>,</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="HW2_START_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <p><strong>3B.Q1:</strong> Write a short paragraph assessing the parallel trends assumption for each outcome.</p>
-<p><em>Response (4-6 sentences):</em> _________________________</p>
+<p><em>Response (4-6 sentences):</em> I assessed the parallel trends assumption by comparing trends in Liberal vote share for treated and control precincts prior to treatment in the plot. In the proposed turbines panel, the treated and control precincts follow similar trends between 2003 and 2007. This trend suggests that the parallel trends assumption is plausible for this outcome. In the operational turbines panel, the treated precincts start with higher Liberal vote share in 2003, but the decline from 2003 to 2007 is broadly similar in direction to that of control precincts. Although their levels differ, the pre-treatment trends do not show clear divergence prior to 2007. Overall, the figure provides visual support for the parallel trends assumption, but the evidence is stronger for proposed turbines than for operational turbines.</p>
 <hr>
 </section>
 </section>
@@ -526,73 +1216,774 @@ window.Quarto = {
 <li>If we attempted to use this approach with the full sample estimating all 6185 (n-1) precinct-level coefficients is impractical (it would take a long time).</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">40002026</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>precinct_frame <span class="ot">&lt;-</span> panel_data <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(precinct_id) <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">proposed_turbine_any =</span> <span class="fu">as.integer</span>(<span class="fu">any</span>(proposed_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>ids_40 <span class="ot">&lt;-</span> precinct_frame <span class="sc">%&gt;%</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(proposed_turbine_any) <span class="sc">%&gt;%</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(precinct_id)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>sample_40_precincts <span class="ot">&lt;-</span> panel_data <span class="sc">%&gt;%</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(ids_40, <span class="at">by =</span> <span class="st">"precinct_id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">40002026</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>precinct_frame <span class="ot">&lt;-</span> panel_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(precinct_id) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">proposed_turbine_any =</span> <span class="fu">as.integer</span>(<span class="fu">any</span>(proposed_turbine <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>ids_40 <span class="ot">&lt;-</span> precinct_frame <span class="sc">%&gt;%</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(proposed_turbine_any) <span class="sc">%&gt;%</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(precinct_id)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>sample_40_precincts <span class="ot">&lt;-</span> panel_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(ids_40, <span class="at">by =</span> <span class="st">"precinct_id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 <section id="c-estimate-a-fixed-effects-model-using-lm-with-fixed-effects-added-for-precinct-and-year-using-the-sample-of-40-precincts-just-created." class="level4">
 <h4 class="anchored" data-anchor-id="c-estimate-a-fixed-effects-model-using-lm-with-fixed-effects-added-for-precinct-and-year-using-the-sample-of-40-precincts-just-created."><strong>3C:</strong> Estimate a fixed effects model using <code>lm()</code> with fixed effects added for <code>precinct</code> and <code>year</code> using the sample of 40 precincts just created.</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model1_ff <span class="ot">&lt;-</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summ(*** , model.fit = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model1_ff <span class="ot">&lt;-</span> <span class="fu">lm</span>(perc_lib <span class="sc">~</span> proposed_turbine <span class="sc">+</span> precinct_id <span class="sc">+</span> year,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> sample_40_precincts)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(model1_ff, <span class="at">model.fit =</span> <span class="cn">FALSE</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 120 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> perc_lib </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table>  <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> 0.275 </td>
+   <td style="text-align:right;"> 0.050 </td>
+   <td style="text-align:right;"> 5.460 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> proposed_turbine </td>
+   <td style="text-align:right;"> -0.057 </td>
+   <td style="text-align:right;"> 0.031 </td>
+   <td style="text-align:right;"> -1.858 </td>
+   <td style="text-align:right;"> 0.067 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id10.115s.10.84. </td>
+   <td style="text-align:right;"> 0.166 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 2.402 </td>
+   <td style="text-align:right;"> 0.019 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id105.038.105.45. </td>
+   <td style="text-align:right;"> 0.053 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 0.765 </td>
+   <td style="text-align:right;"> 0.447 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id14.149.14.79. </td>
+   <td style="text-align:right;"> 0.208 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.976 </td>
+   <td style="text-align:right;"> 0.004 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id14.168.14.82. </td>
+   <td style="text-align:right;"> 0.192 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.749 </td>
+   <td style="text-align:right;"> 0.007 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id18.003.18.1. </td>
+   <td style="text-align:right;"> 0.121 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 1.738 </td>
+   <td style="text-align:right;"> 0.086 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id18.033.18.19. </td>
+   <td style="text-align:right;"> -0.002 </td>
+   <td style="text-align:right;"> 0.072 </td>
+   <td style="text-align:right;"> -0.034 </td>
+   <td style="text-align:right;"> 0.973 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id21.126.21.179. </td>
+   <td style="text-align:right;"> 0.204 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 2.950 </td>
+   <td style="text-align:right;"> 0.004 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.061.22.60. </td>
+   <td style="text-align:right;"> 0.213 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 3.047 </td>
+   <td style="text-align:right;"> 0.003 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.124.22.52. </td>
+   <td style="text-align:right;"> 0.156 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.230 </td>
+   <td style="text-align:right;"> 0.029 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.137.22.193. </td>
+   <td style="text-align:right;"> 0.179 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 2.590 </td>
+   <td style="text-align:right;"> 0.011 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.158.22.203. </td>
+   <td style="text-align:right;"> 0.165 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.357 </td>
+   <td style="text-align:right;"> 0.021 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.209.22.172. </td>
+   <td style="text-align:right;"> 0.188 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.699 </td>
+   <td style="text-align:right;"> 0.009 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.056.28.149. </td>
+   <td style="text-align:right;"> -0.011 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> -0.160 </td>
+   <td style="text-align:right;"> 0.873 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.072.28.98. </td>
+   <td style="text-align:right;"> 0.097 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 1.409 </td>
+   <td style="text-align:right;"> 0.163 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.139.28.145. </td>
+   <td style="text-align:right;"> 0.040 </td>
+   <td style="text-align:right;"> 0.072 </td>
+   <td style="text-align:right;"> 0.553 </td>
+   <td style="text-align:right;"> 0.582 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.163.28.69. </td>
+   <td style="text-align:right;"> 0.124 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 1.802 </td>
+   <td style="text-align:right;"> 0.075 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id29.241.29.172. </td>
+   <td style="text-align:right;"> 0.067 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 0.958 </td>
+   <td style="text-align:right;"> 0.341 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id34.050.34.39. </td>
+   <td style="text-align:right;"> 0.342 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 4.947 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id34.151.34.125. </td>
+   <td style="text-align:right;"> 0.098 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 1.399 </td>
+   <td style="text-align:right;"> 0.166 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id36.133.36.92. </td>
+   <td style="text-align:right;"> 0.358 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 5.179 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.044.40.68. </td>
+   <td style="text-align:right;"> 0.236 </td>
+   <td style="text-align:right;"> 0.072 </td>
+   <td style="text-align:right;"> 3.275 </td>
+   <td style="text-align:right;"> 0.002 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.098.40.120. </td>
+   <td style="text-align:right;"> 0.195 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.792 </td>
+   <td style="text-align:right;"> 0.007 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.134.40.174. </td>
+   <td style="text-align:right;"> 0.216 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 3.127 </td>
+   <td style="text-align:right;"> 0.002 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.243.40.22. </td>
+   <td style="text-align:right;"> 0.325 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 4.651 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.244.40.46. </td>
+   <td style="text-align:right;"> 0.178 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.543 </td>
+   <td style="text-align:right;"> 0.013 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id55.228.55.180. </td>
+   <td style="text-align:right;"> 0.130 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 1.883 </td>
+   <td style="text-align:right;"> 0.064 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id58.162.58.98. </td>
+   <td style="text-align:right;"> 0.278 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 4.024 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id58.232.58.231. </td>
+   <td style="text-align:right;"> 0.203 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 2.940 </td>
+   <td style="text-align:right;"> 0.004 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id67.141.67.123. </td>
+   <td style="text-align:right;"> 0.022 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 0.311 </td>
+   <td style="text-align:right;"> 0.757 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id69.073.69.35. </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 1.015 </td>
+   <td style="text-align:right;"> 0.313 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id70.081.70.44. </td>
+   <td style="text-align:right;"> 0.062 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 0.899 </td>
+   <td style="text-align:right;"> 0.372 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id70.135.70.105. </td>
+   <td style="text-align:right;"> 0.441 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 6.388 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id70.221.70.155. </td>
+   <td style="text-align:right;"> 0.247 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 3.576 </td>
+   <td style="text-align:right;"> 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id73.248.73.180. </td>
+   <td style="text-align:right;"> 0.187 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.672 </td>
+   <td style="text-align:right;"> 0.009 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id73.251.73.180. </td>
+   <td style="text-align:right;"> 0.204 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 2.927 </td>
+   <td style="text-align:right;"> 0.005 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id87.017.87.58. </td>
+   <td style="text-align:right;"> 0.127 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 1.836 </td>
+   <td style="text-align:right;"> 0.070 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id87.053.87.68. </td>
+   <td style="text-align:right;"> 0.214 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 3.100 </td>
+   <td style="text-align:right;"> 0.003 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id87.213.87.24. </td>
+   <td style="text-align:right;"> 0.033 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 0.469 </td>
+   <td style="text-align:right;"> 0.641 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id98.009.98.12. </td>
+   <td style="text-align:right;"> 0.129 </td>
+   <td style="text-align:right;"> 0.069 </td>
+   <td style="text-align:right;"> 1.868 </td>
+   <td style="text-align:right;"> 0.066 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> year2007 </td>
+   <td style="text-align:right;"> -0.045 </td>
+   <td style="text-align:right;"> 0.019 </td>
+   <td style="text-align:right;"> -2.364 </td>
+   <td style="text-align:right;"> 0.021 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> year2011 </td>
+   <td style="text-align:right;"> -0.131 </td>
+   <td style="text-align:right;"> 0.024 </td>
+   <td style="text-align:right;"> -5.381 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS</td></tr></tfoot>
+</table>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summ(*** , model.fit = FALSE, [. . .])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(model1_ff, <span class="at">model.fit =</span> <span class="cn">FALSE</span>, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">robust =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 120 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> perc_lib </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table>  <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> 0.275 </td>
+   <td style="text-align:right;"> 0.085 </td>
+   <td style="text-align:right;"> 3.247 </td>
+   <td style="text-align:right;"> 0.002 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> proposed_turbine </td>
+   <td style="text-align:right;"> -0.057 </td>
+   <td style="text-align:right;"> 0.039 </td>
+   <td style="text-align:right;"> -1.465 </td>
+   <td style="text-align:right;"> 0.147 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id10.115s.10.84. </td>
+   <td style="text-align:right;"> 0.166 </td>
+   <td style="text-align:right;"> 0.101 </td>
+   <td style="text-align:right;"> 1.646 </td>
+   <td style="text-align:right;"> 0.104 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id105.038.105.45. </td>
+   <td style="text-align:right;"> 0.053 </td>
+   <td style="text-align:right;"> 0.104 </td>
+   <td style="text-align:right;"> 0.509 </td>
+   <td style="text-align:right;"> 0.612 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id14.149.14.79. </td>
+   <td style="text-align:right;"> 0.208 </td>
+   <td style="text-align:right;"> 0.094 </td>
+   <td style="text-align:right;"> 2.201 </td>
+   <td style="text-align:right;"> 0.031 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id14.168.14.82. </td>
+   <td style="text-align:right;"> 0.192 </td>
+   <td style="text-align:right;"> 0.110 </td>
+   <td style="text-align:right;"> 1.751 </td>
+   <td style="text-align:right;"> 0.084 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id18.003.18.1. </td>
+   <td style="text-align:right;"> 0.121 </td>
+   <td style="text-align:right;"> 0.107 </td>
+   <td style="text-align:right;"> 1.132 </td>
+   <td style="text-align:right;"> 0.261 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id18.033.18.19. </td>
+   <td style="text-align:right;"> -0.002 </td>
+   <td style="text-align:right;"> 0.101 </td>
+   <td style="text-align:right;"> -0.024 </td>
+   <td style="text-align:right;"> 0.981 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id21.126.21.179. </td>
+   <td style="text-align:right;"> 0.204 </td>
+   <td style="text-align:right;"> 0.157 </td>
+   <td style="text-align:right;"> 1.299 </td>
+   <td style="text-align:right;"> 0.198 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.061.22.60. </td>
+   <td style="text-align:right;"> 0.213 </td>
+   <td style="text-align:right;"> 0.105 </td>
+   <td style="text-align:right;"> 2.023 </td>
+   <td style="text-align:right;"> 0.047 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.124.22.52. </td>
+   <td style="text-align:right;"> 0.156 </td>
+   <td style="text-align:right;"> 0.103 </td>
+   <td style="text-align:right;"> 1.509 </td>
+   <td style="text-align:right;"> 0.135 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.137.22.193. </td>
+   <td style="text-align:right;"> 0.179 </td>
+   <td style="text-align:right;"> 0.104 </td>
+   <td style="text-align:right;"> 1.721 </td>
+   <td style="text-align:right;"> 0.089 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.158.22.203. </td>
+   <td style="text-align:right;"> 0.165 </td>
+   <td style="text-align:right;"> 0.088 </td>
+   <td style="text-align:right;"> 1.879 </td>
+   <td style="text-align:right;"> 0.064 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id22.209.22.172. </td>
+   <td style="text-align:right;"> 0.188 </td>
+   <td style="text-align:right;"> 0.106 </td>
+   <td style="text-align:right;"> 1.770 </td>
+   <td style="text-align:right;"> 0.081 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.056.28.149. </td>
+   <td style="text-align:right;"> -0.011 </td>
+   <td style="text-align:right;"> 0.112 </td>
+   <td style="text-align:right;"> -0.099 </td>
+   <td style="text-align:right;"> 0.921 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.072.28.98. </td>
+   <td style="text-align:right;"> 0.097 </td>
+   <td style="text-align:right;"> 0.104 </td>
+   <td style="text-align:right;"> 0.934 </td>
+   <td style="text-align:right;"> 0.353 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.139.28.145. </td>
+   <td style="text-align:right;"> 0.040 </td>
+   <td style="text-align:right;"> 0.111 </td>
+   <td style="text-align:right;"> 0.359 </td>
+   <td style="text-align:right;"> 0.721 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id28.163.28.69. </td>
+   <td style="text-align:right;"> 0.124 </td>
+   <td style="text-align:right;"> 0.106 </td>
+   <td style="text-align:right;"> 1.179 </td>
+   <td style="text-align:right;"> 0.242 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id29.241.29.172. </td>
+   <td style="text-align:right;"> 0.067 </td>
+   <td style="text-align:right;"> 0.089 </td>
+   <td style="text-align:right;"> 0.749 </td>
+   <td style="text-align:right;"> 0.456 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id34.050.34.39. </td>
+   <td style="text-align:right;"> 0.342 </td>
+   <td style="text-align:right;"> 0.089 </td>
+   <td style="text-align:right;"> 3.821 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id34.151.34.125. </td>
+   <td style="text-align:right;"> 0.098 </td>
+   <td style="text-align:right;"> 0.093 </td>
+   <td style="text-align:right;"> 1.050 </td>
+   <td style="text-align:right;"> 0.297 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id36.133.36.92. </td>
+   <td style="text-align:right;"> 0.358 </td>
+   <td style="text-align:right;"> 0.091 </td>
+   <td style="text-align:right;"> 3.941 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.044.40.68. </td>
+   <td style="text-align:right;"> 0.236 </td>
+   <td style="text-align:right;"> 0.096 </td>
+   <td style="text-align:right;"> 2.457 </td>
+   <td style="text-align:right;"> 0.016 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.098.40.120. </td>
+   <td style="text-align:right;"> 0.195 </td>
+   <td style="text-align:right;"> 0.092 </td>
+   <td style="text-align:right;"> 2.123 </td>
+   <td style="text-align:right;"> 0.037 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.134.40.174. </td>
+   <td style="text-align:right;"> 0.216 </td>
+   <td style="text-align:right;"> 0.090 </td>
+   <td style="text-align:right;"> 2.399 </td>
+   <td style="text-align:right;"> 0.019 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.243.40.22. </td>
+   <td style="text-align:right;"> 0.325 </td>
+   <td style="text-align:right;"> 0.098 </td>
+   <td style="text-align:right;"> 3.314 </td>
+   <td style="text-align:right;"> 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id40.244.40.46. </td>
+   <td style="text-align:right;"> 0.178 </td>
+   <td style="text-align:right;"> 0.095 </td>
+   <td style="text-align:right;"> 1.873 </td>
+   <td style="text-align:right;"> 0.065 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id55.228.55.180. </td>
+   <td style="text-align:right;"> 0.130 </td>
+   <td style="text-align:right;"> 0.092 </td>
+   <td style="text-align:right;"> 1.406 </td>
+   <td style="text-align:right;"> 0.164 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id58.162.58.98. </td>
+   <td style="text-align:right;"> 0.278 </td>
+   <td style="text-align:right;"> 0.097 </td>
+   <td style="text-align:right;"> 2.867 </td>
+   <td style="text-align:right;"> 0.005 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id58.232.58.231. </td>
+   <td style="text-align:right;"> 0.203 </td>
+   <td style="text-align:right;"> 0.092 </td>
+   <td style="text-align:right;"> 2.203 </td>
+   <td style="text-align:right;"> 0.031 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id67.141.67.123. </td>
+   <td style="text-align:right;"> 0.022 </td>
+   <td style="text-align:right;"> 0.115 </td>
+   <td style="text-align:right;"> 0.189 </td>
+   <td style="text-align:right;"> 0.850 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id69.073.69.35. </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 0.104 </td>
+   <td style="text-align:right;"> 0.677 </td>
+   <td style="text-align:right;"> 0.500 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id70.081.70.44. </td>
+   <td style="text-align:right;"> 0.062 </td>
+   <td style="text-align:right;"> 0.095 </td>
+   <td style="text-align:right;"> 0.655 </td>
+   <td style="text-align:right;"> 0.514 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id70.135.70.105. </td>
+   <td style="text-align:right;"> 0.441 </td>
+   <td style="text-align:right;"> 0.128 </td>
+   <td style="text-align:right;"> 3.451 </td>
+   <td style="text-align:right;"> 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id70.221.70.155. </td>
+   <td style="text-align:right;"> 0.247 </td>
+   <td style="text-align:right;"> 0.111 </td>
+   <td style="text-align:right;"> 2.217 </td>
+   <td style="text-align:right;"> 0.030 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id73.248.73.180. </td>
+   <td style="text-align:right;"> 0.187 </td>
+   <td style="text-align:right;"> 0.108 </td>
+   <td style="text-align:right;"> 1.720 </td>
+   <td style="text-align:right;"> 0.089 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id73.251.73.180. </td>
+   <td style="text-align:right;"> 0.204 </td>
+   <td style="text-align:right;"> 0.102 </td>
+   <td style="text-align:right;"> 1.995 </td>
+   <td style="text-align:right;"> 0.050 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id87.017.87.58. </td>
+   <td style="text-align:right;"> 0.127 </td>
+   <td style="text-align:right;"> 0.112 </td>
+   <td style="text-align:right;"> 1.135 </td>
+   <td style="text-align:right;"> 0.260 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id87.053.87.68. </td>
+   <td style="text-align:right;"> 0.214 </td>
+   <td style="text-align:right;"> 0.150 </td>
+   <td style="text-align:right;"> 1.428 </td>
+   <td style="text-align:right;"> 0.157 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id87.213.87.24. </td>
+   <td style="text-align:right;"> 0.033 </td>
+   <td style="text-align:right;"> 0.087 </td>
+   <td style="text-align:right;"> 0.375 </td>
+   <td style="text-align:right;"> 0.709 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> precinct_id98.009.98.12. </td>
+   <td style="text-align:right;"> 0.129 </td>
+   <td style="text-align:right;"> 0.107 </td>
+   <td style="text-align:right;"> 1.210 </td>
+   <td style="text-align:right;"> 0.230 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> year2007 </td>
+   <td style="text-align:right;"> -0.045 </td>
+   <td style="text-align:right;"> 0.024 </td>
+   <td style="text-align:right;"> -1.876 </td>
+   <td style="text-align:right;"> 0.064 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> year2011 </td>
+   <td style="text-align:right;"> -0.131 </td>
+   <td style="text-align:right;"> 0.036 </td>
+   <td style="text-align:right;"> -3.686 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: Robust, type = HC3</td></tr></tfoot>
+</table>
+</div>
 </div>
 <p><strong>3C.Q1:</strong> Intuition check: Is the <em>signal-to-noise</em> ratio for the treatment estimate greater than <em>2-to-1</em>?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> From the model, signal-to-noise ratio for the treatment estimate is approximately 1.86. Thus, we cannot say that the signal-to-noise ratio is greater than <em>2-to-1</em>.</p>
 <blockquote class="blockquote">
 <p>HINT: Add the argument <code>digits = 3</code> to the <code>summ()</code> function above</p>
 </blockquote>
-<p><strong>3C.Q2:</strong> Re-run the <code>summ()</code> function using the <em>heteroscedasticiy robust standard error adjustment</em> (<code>robust = TRUE</code>). Did the standard error (S.E.) estimates change? Explain why.</p>
-<p><em>Response:</em> _________________________</p>
+<p><strong>3C.Q2:</strong> Re-run the <code>summ()</code> function using the <em>heteroscedasticity robust standard error adjustment</em> (<code>robust = TRUE</code>). Did the standard error (S.E.) estimates change? Explain why.</p>
+<p><em>Response:</em> Yes, the standard errors increased when using heteroskedasticity-robust standard errors. This occurred because robust standard errors relax the assumption of constant error variance and adjust for potential heteroskedasticity in the residuals.</p>
 <p><strong>3C.Q3:</strong> Compare results of the model above to the findings from the fixed effects analysis in the Stokes (2015) study. Why might the results be similar or different?</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The estimated effect in this model is similar in direction and magnitude to Stokes (2015), which also found electoral backlash from turbine exposure. Differences in statistical significance likely stem from the smaller sample size (40 samples) and the use of a simpler model compared to the full study.</p>
 <p><strong>3C.Q4:</strong> In your own words, explain why it is advantageous from a causal inference perspective to include year and precinct fixed effects. Explain how between-level and within-level variance is relevant to the problem of omitted variable bias (OVB).</p>
-<p><em>Response (2-4 sentences):</em> _________________________</p>
+<p><em>Response (2-4 sentences):</em> Precinct fixed effects control for time-invariant characteristics, while year fixed effects capture province-wide trends that are affecting all precincts. This approach removes both between-precinct and between-year variation and forces identification to rely on within-precinct changes over time. By using only the variation within each level, the fixed effects reduced omitted variable bias from unobserved factors that not only differed across precincts or years but that were also constant within them.</p>
 <hr>
 </section>
 <section id="d.-now-using-the-full-sample-estimate-the-treatment-effect-of-wind-turbine-proposals-on-incumbent-vote-share.-use-feols-from-the-fixest-package-to-estimate-the-fixed-effects." class="level4">
 <h4 class="anchored" data-anchor-id="d.-now-using-the-full-sample-estimate-the-treatment-effect-of-wind-turbine-proposals-on-incumbent-vote-share.-use-feols-from-the-fixest-package-to-estimate-the-fixed-effects."><strong>3D.</strong> Now using the full sample, estimate the treatment effect of wind turbine proposals on incumbent vote share. Use <code>feols()</code> from the <code>{fixest}</code> package to estimate the fixed effects.</h4>
 <p>See vignette here: <a href="https://cran.r-project.org/web/packages/fixest/vignettes/fixest_walkthrough.html#11_Estimation">fixest walkthrough</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model2_ff <span class="ot">&lt;-</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model2_ff <span class="ot">&lt;-</span> <span class="fu">feols</span>(perc_lib <span class="sc">~</span> proposed_turbine <span class="sc">|</span> precinct_id <span class="sc">+</span> year, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> panel_data,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster =</span> <span class="sc">~</span>precinct_id)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2_ff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OLS estimation, Dep. Var.: perc_lib
+Observations: 18,558
+Fixed-effects: precinct_id: 6,186,  year: 3
+Standard-errors: Clustered (precinct_id) 
+                 Estimate Std. Error  t value   Pr(&gt;|t|)    
+proposed_turbine -0.04157   0.007682 -5.41144 6.4869e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 0.070481     Adj. R2: 0.624835
+                 Within R2: 0.00224 </code></pre>
+</div>
 </div>
 <p><strong>3D.Q1:</strong> Interpret the model results and translate findings to be clear to an audience that may not have a background in causal inference (Econometrics) methods.</p>
 <p>In panel data settings, why is clustering by precinct important (i.e., <code>cluster = ~precinct_id</code>) ?”</p>
-<p><em>Response (4-6 sentences):</em> _________________________</p>
+<p><em>Response (4-6 sentences):</em> The model compares each precinct to itself over time and asks whether Liberal vote share changes after a wind turbine is proposed, while accounting for province-wide election trends. The estimate of −0.0416 indicates that, on average, Liberal vote share in a precinct declines by about 4 percentage points after a turbine proposal appears relative to that same precinct in other years. This effect is statistically significant, which suggests that the decline is unlikely to be due to random chance. In other words, communities tend to reduce support for the governing party when a wind turbine is proposed nearby.</p>
 <hr>
 </section>
 <section id="e.-estimate-the-treatment-effect-of-operational-wind-turbines-on-incumbent-vote-share.-use-the-same-approach-as-the-previous-model." class="level4">
 <h4 class="anchored" data-anchor-id="e.-estimate-the-treatment-effect-of-operational-wind-turbines-on-incumbent-vote-share.-use-the-same-approach-as-the-previous-model."><strong>3E.</strong> Estimate the treatment effect of <em>operational wind turbines</em> on incumbent vote share. Use the same approach as the previous model.</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model3_ff <span class="ot">&lt;-</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>model3_ff <span class="ot">&lt;-</span> <span class="fu">feols</span>(perc_lib <span class="sc">~</span> operational_turbine <span class="sc">|</span> precinct_id <span class="sc">+</span> year, </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> panel_data,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster =</span> <span class="sc">~</span>precinct_id)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3_ff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OLS estimation, Dep. Var.: perc_lib
+Observations: 18,558
+Fixed-effects: precinct_id: 6,186,  year: 3
+Standard-errors: Clustered (precinct_id) 
+                     Estimate Std. Error  t value   Pr(&gt;|t|)    
+operational_turbine -0.092762   0.011739 -7.90195 3.2271e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 0.070447     Adj. R2: 0.625198
+                 Within R2: 0.003206</code></pre>
+</div>
 </div>
 <p><strong>3E.Q1:</strong> Interpret the <code>model3_ff</code> results as clearly and <strong>concisely</strong> as you can.</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> This model compares each precinct to itself over time and examines whether Liberal vote share changes after a wind turbine becomes operational, while accounting for province-wide election trends. The estimate of −0.093 indicates that, on average, Liberal vote share in a precinct declines by about 9 percentage points once a turbine is operational relative to that same precinct in other years. This effect is also statistically significant, which indicates that the decline is unlikely to be due to random chance. In other words, the electoral backlash against the governing party is even stronger once turbines are built and operating.</p>
 <p><strong>3E.Q2:</strong> Why do you think the effect of proposed wind turbines is different from operational wind turbines. Develop your own theory about why incumbent vote share is affected in this way. Use the Stokes (2015) study to inform your response as needed.</p>
-<p><em>Response:</em> _________________________</p>
+<p><em>Response:</em> The effect of operational wind turbines is larger than that of proposed turbines because the costs of the policy become more tangible once turbines are actually built. During the proposal stage, opposition may be driven uncertainty and anticipation of the project, but once turbines are operational, residents directly experience the noise impacts and changes to the local landscape. Stokes (2015) argued that voters are more likely to punish incumbents when policy costs are concentrated and can be directly attributed to government decisions. In addition, operational turbines may reinforce the perception that local preferences were ignored, which may trigger resentment toward the governing party. As a result, electoral backlash intensifies when turbines move from the proposal phase to the implementation phase.</p>
 <hr>
+<div class="cell">
+
+</div>
+</section>
 </section>
 </section>
 
@@ -625,15 +2016,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -665,50 +2053,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -718,17 +2067,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -740,245 +2080,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1019,7 +2123,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
 
 
 

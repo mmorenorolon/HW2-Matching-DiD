@@ -1,7 +1,7 @@
 ---
 title: "🌬️🗳 Assignment 2: Wind Turbines, Matching, and Difference-in-Differences"
 subtitle: "Replicate causal inference identification strategies in Stokes (2015) "
-author: "EDS 241 / ESM 244 (DUE: 2/4/26)"
+author: "Melannie Moreno Rolón - EDS 241 / ESM 244 (DUE: 2/4/26)"
 format:
   html:
     theme: sketchy
@@ -319,7 +319,7 @@ bal.tab(propensity_scores,
 
 **2E.Q1** Compare Mahalanobis vs propensity score matching. Which method did a better job at achieving balance?
 
-*Response:* _________________________
+*Response:* Propensity score matching achieved a slightly better balance, since the adjusted standardized mean differences are consistently very small across all covariates and had a slightly tighter balance than Mahalanobis matching.
 
 ------------------------------------------------------------------------
 
@@ -328,23 +328,25 @@ bal.tab(propensity_scores,
 Using the matched data (Mahalanobis method), estimate the effect of treatment on the change in incumbent vote share (`change_liberal`).
 
 ```{r}
+reg_match <-  lm(
+  change_liberal ~ proposed_turbine_3km,
+  data = matched_data,
+  weights = matched_data$weights)
 
-reg_match <- 
-
-#summ(, model.fit = FALSE)
+summ(reg_match, model.fit = FALSE)
 ```
 
 **2F.Q1** Have you identified a causal estimate using this approach: Why or why not? 
 
-*Response:* _________________________
+*Response:* This approach identified a causal estimate that depends on satisfying the matching assumptions. The analysis reduces confounding from observed pre-treatment covariates by matching treated and control precincts, and under the assumption that there are no unobserved confounders, the estimated effect is −0.06. This would be the causal effect of proximity to a turbine proposal on incumbent vote share.
 
 **2F.Q2** When using a matching method, what is the main threat to causal identification?
 
-*Response:* _________________________
+*Response:* The main threat to causal identification when using the matching method is the possibility of having an unobserved confounding. If there are factors left unmeasured that could affect turbine siting and voting behavior, the treatment estimate may be biased.
 
 **2F.Q3** Describe why the treatment estimate represents the `Average Treatment for the Treated (ATT)` and explain why this is the case relative to estimation of the `Average Treatment Effect (ATE)`.
 
-*Response:* _________________________
+*Response:* The treatment estimate represents the Average Treatment Effect on the Treated (ATT) because the matching procedure pairs each treated precinct with similar control precincts and then estimates the effect for those treated units. The control units are also selected to resemble the treated group, where the estimate reflects the effect of treatment on precincts that actually experienced turbine exposure.
 
 ------------------------------------------------------------------------
 
@@ -358,26 +360,33 @@ reg_match <-
 
 ```{r}
 
-panel_data <- 
+panel_data <- read_csv(here("data", "Stokes15_panel_data.csv")) %>% 
+    mutate(precinct_id = factor(precinct_id),
+           year = factor(year))
+
+glimpse(panel_data)
 
 # HINT: Try running `tabyl(panel_data$year)`. Review article to make sense of the row numbers (n).
-
+tabyl(panel_data$year)
 ```
 
 **3A.Q1:** Why are there 18,558 rows in `panel_data`?
 
-*Response:* _________________________
+*Response:* The dataset is structured in long format. Each precinct appears once for each election year. There are 6,186 precincts observed in three election years (2003, 2007, and 2011), therefore, the dataset contains 18,558 rows in total.
 
 ```{r}
 # How many years are included in the panel?
+n_distinct(panel_data$year)
+    # There are 3 years included in the panel (2003, 2007, 2011).
 
 # How many precincts are there?
-
+n_distinct(panel_data$precinct_id)
+    # There are 6,186 total precincts.
 ```
 
 **3A.Q2:** How many unique precincts are *ever treated* (i.e., `proposed` & `operational`)?
 
-*Response:* _________________________
+*Response:* There are 184 unique precincts that are *ever treated*. Of these, 52 precincts eventually have an operational turbine.
 
 ```{r}
 
@@ -459,7 +468,7 @@ ggplot(aes(year, mean, color = status, group = status)) +
 
 **3B.Q1:** Write a short paragraph assessing the parallel trends assumption for each outcome.
 
-*Response (4-6 sentences):* _________________________
+*Response (4-6 sentences):* I assessed the parallel trends assumption by comparing trends in Liberal vote share for treated and control precincts prior to treatment in the plot. In the proposed turbines panel, the treated and control precincts follow similar trends between 2003 and 2007. This trend suggests that the parallel trends assumption is plausible for this outcome. In the operational turbines panel, the treated precincts start with higher Liberal vote share in 2003, but the decline from 2003 to 2007 is broadly similar in direction to that of control precincts. Although their levels differ, the pre-treatment trends do not show clear divergence prior to 2007. Overall, the figure provides visual support for the parallel trends assumption, but the evidence is stronger for proposed turbines than for operational turbines.
 
 ------------------------------------------------------------------------
 
@@ -512,32 +521,33 @@ sample_40_precincts <- panel_data %>%
 #### **3C:** Estimate a fixed effects model using `lm()` with fixed effects added for `precinct` and `year` using the sample of 40 precincts just created.
 
 ```{r}
-model1_ff <- 
+model1_ff <- lm(perc_lib ~ proposed_turbine + precinct_id + year,
+                data = sample_40_precincts)
 
-# summ(*** , model.fit = FALSE)
+summ(model1_ff, model.fit = FALSE, digits = 3)
 ```
 
 ```{r}
-# summ(*** , model.fit = FALSE, [. . .])
+summ(model1_ff, model.fit = FALSE, digits = 3, robust = TRUE)
 ```
 
 **3C.Q1:** Intuition check: Is the *signal-to-noise* ratio for the treatment estimate greater than *2-to-1*?
 
-*Response:* _________________________
+*Response:* From the model, signal-to-noise ratio for the treatment estimate is approximately 1.86. Thus, we cannot say that the signal-to-noise ratio is greater than *2-to-1*. 
 
 > HINT: Add the argument `digits = 3` to the `summ()` function above
 
-**3C.Q2:** Re-run the `summ()` function using the *heteroscedasticiy robust standard error adjustment* (`robust = TRUE`). Did the standard error (S.E.) estimates change? Explain why. 
+**3C.Q2:** Re-run the `summ()` function using the *heteroscedasticity robust standard error adjustment* (`robust = TRUE`). Did the standard error (S.E.) estimates change? Explain why. 
 
-*Response:* _________________________
+*Response:* Yes, the standard errors increased when using heteroskedasticity-robust standard errors. This occurred because robust standard errors relax the assumption of constant error variance and adjust for potential heteroskedasticity in the residuals. 
 
 **3C.Q3:** Compare results of the model above to the findings from the fixed effects analysis in the Stokes (2015) study. Why might the results be similar or different? 
 
-*Response:* _________________________
+*Response:* The estimated effect in this model is similar in direction and magnitude to Stokes (2015), which also found electoral backlash from turbine exposure. Differences in statistical significance likely stem from the smaller sample size (40 samples) and the use of a simpler model compared to the full study.
 
 **3C.Q4:** In your own words, explain why it is advantageous from a causal inference perspective to include year and precinct fixed effects. Explain how between-level and within-level variance is relevant to the problem of omitted variable bias (OVB). 
 
-*Response (2-4 sentences):* _________________________
+*Response (2-4 sentences):* Precinct fixed effects control for time-invariant characteristics, while year fixed effects capture province-wide trends that are affecting all precincts. This approach removes both between-precinct and between-year variation and forces identification to rely on within-precinct changes over time. By using only the variation within each level, the fixed effects reduced omitted variable bias from unobserved factors that not only differed across precincts or years but that were also constant within them.
 
 ------------------------------------------------------------------------
 
@@ -547,16 +557,18 @@ See vignette here: [fixest walkthrough](https://cran.r-project.org/web/packages/
 
 ```{r}
 
-model2_ff <- 
+model2_ff <- feols(perc_lib ~ proposed_turbine | precinct_id + year, 
+                   data = panel_data,
+                   cluster = ~precinct_id)
 
-summary()
+summary(model2_ff)
 ```
 
 **3D.Q1:** Interpret the model results and translate findings to be clear to an audience that may not have a background in causal inference (Econometrics) methods.
 
 In panel data settings, why is clustering by precinct important (i.e., `cluster = ~precinct_id`) ?”
 
-*Response (4-6 sentences):* _________________________
+*Response (4-6 sentences):* The model compares each precinct to itself over time and asks whether Liberal vote share changes after a wind turbine is proposed, while accounting for province-wide election trends. The estimate of −0.0416 indicates that, on average, Liberal vote share in a precinct declines by about 4 percentage points after a turbine proposal appears relative to that same precinct in other years. This effect is statistically significant, which suggests that the decline is unlikely to be due to random chance. In other words, communities tend to reduce support for the governing party when a wind turbine is proposed nearby.
 
 ------------------------------------------------------------------------
 
@@ -564,20 +576,21 @@ In panel data settings, why is clustering by precinct important (i.e., `cluster 
 
 ```{r}
 
-model3_ff <- 
+model3_ff <- feols(perc_lib ~ operational_turbine | precinct_id + year, 
+                   data = panel_data,
+                   cluster = ~precinct_id)
 
-summary()
+summary(model3_ff)
 ```
 
 
 **3E.Q1:** Interpret the `model3_ff` results as clearly and **concisely** as you can.
 
-*Response:* _________________________
+*Response:* This model compares each precinct to itself over time and examines whether Liberal vote share changes after a wind turbine becomes operational, while accounting for province-wide election trends. The estimate of −0.093 indicates that, on average, Liberal vote share in a precinct declines by about 9 percentage points once a turbine is operational relative to that same precinct in other years. This effect is also statistically significant, which indicates that the decline is unlikely to be due to random chance. In other words, the electoral backlash against the governing party is even stronger once turbines are built and operating.
 
 **3E.Q2:** Why do you think the effect of proposed wind turbines is different from operational wind turbines. Develop your own theory about why incumbent vote share is affected in this way. Use the Stokes (2015) study to inform your response as needed. 
 
-*Response:* _________________________
-
+*Response:* The effect of operational wind turbines is larger than that of proposed turbines because the costs of the policy become more tangible once turbines are actually built. During the proposal stage, opposition may be driven uncertainty and anticipation of the project, but once turbines are operational, residents directly experience the noise impacts and changes to the local landscape. Stokes (2015) argued that voters are more likely to punish incumbents when policy costs are concentrated and can be directly attributed to government decisions. In addition, operational turbines may reinforce the perception that local preferences were ignored, which may trigger resentment toward the governing party. As a result, electoral backlash intensifies when turbines move from the proposal phase to the implementation phase.
 
 ------------------------------------------------------------------------
 
